@@ -4,7 +4,7 @@ set -euo pipefail
 
 if [ "${GITHUB_REF}" == "${GITHUB_REF#refs/tags/}" ]; then
   echo "This is not a tagged push." 1>&2
-  exit 1
+  exit 78
 fi
 
 TAG="${GITHUB_REF#refs/tags/}"
