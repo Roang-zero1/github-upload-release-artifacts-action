@@ -36,12 +36,3 @@ action "Create GitHub release" {
   ]
   needs = ["filter tag"]
 }
-
-action "Upload artifacts" {
-  uses = "./"
-  args = [ "sample/upload.txt "]
-  secrets = [
-    "GITHUB_TOKEN"
-  ]
-  needs = ["Create GitHub release"]
-}
