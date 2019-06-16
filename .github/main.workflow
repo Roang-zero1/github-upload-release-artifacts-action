@@ -1,6 +1,6 @@
 workflow "Check & Release" {
   on = "push"
-  resolves = ["release version"]
+  resolves = ["Upload artifacts"]
 }
 
 action "lint" {
@@ -25,7 +25,7 @@ action "filter tag" {
   ]
 }
 
-action "release version" {
+action "Create GitHub release" {
   uses = "Roang-zero1/github-create-release-action@master"
   env = {
     VERSION_REGEX = "^v[[:digit:]]+\\.[[:digit:]]+\\.[[:digit:]]+",
@@ -35,4 +35,13 @@ action "release version" {
     "GITHUB_TOKEN"
   ]
   needs = ["filter tag"]
+}
+
+action "Upload artifacts" {
+  uses = "./"
+  args = [ "sample/upload.txt "]
+  secrets = [
+    "GITHUB_TOKEN"
+  ]
+  needs = ["Create GitHub release"]
 }
