@@ -17,3 +17,7 @@ action "Release on Github" {
 ## Secrets
 
 * `GITHUB_TOKEN` Provided by the GitHub action
+
+## Acknowledgements
+
+Idea based on [fnkr/github-action-ghr](https://github.com/fnkr/github-action-ghr)
