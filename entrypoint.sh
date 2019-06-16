@@ -2,12 +2,12 @@
 
 set -euo pipefail
 
-TAG="$(echo ${GITHUB_REF} | grep tags | grep -o "[^/]*$" || true)"
-
-if [ -z $TAG ]; then
+if [ "${GITHUB_REF}" == "${GITHUB_REF#refs/tags/}" ]; then
   echo "This is not a tagged push." 1>&2
   exit 1
 fi
+
+TAG="${GITHUB_REF#refs/tags/}"
 
 # Prepare the headers
 AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
