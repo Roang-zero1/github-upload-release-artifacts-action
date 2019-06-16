@@ -20,12 +20,18 @@ HTTP_RESPONSE=$(curl --write-out "HTTPSTATUS:%{http_code}" \
   -H "${AUTH_HEADER}" \
   "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/${RELEASE_ID}")
 
+HTTP_STATUS=$(echo $HTTP_RESPONSE | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+
 if [ $HTTP_STATUS -ne 200 ]; then
   echo "Release is missing"
   exit 1
 fi
 
-RELEASE_DATA=$(echo $HTTP_RESPONSE | sed -e 's/HTTPSTATUS\:.*//g')
-echo $RELEASE_DATA | jq
-
-echo $1
+for path in "$@"; do
+  if [[ -d $path || -f $path ]]; then
+    ghr -u "${GITHUB_REPOSITORY%/*}" -r "${GITHUB_REPOSITORY#*/}" "${GITHUB_REF#refs/tags/}" "${path}"
+  else
+    echo "Invalid path passed"
+    exit 1
+  fi
+done
