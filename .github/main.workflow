@@ -1,6 +1,6 @@
 workflow "Check & Release" {
   on = "push"
-  resolves = ["Upload artifacts"]
+  resolves = ["Create GitHub release"]
 }
 
 action "lint" {
