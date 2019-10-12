@@ -1,0 +1,10 @@
+# action.yml
+name: 'GitHub Upload Release Artifacts'
+description: 'Upload Artifacts to a GitHub release.'
+author: 'Roang_zero1 <lucas@brandstaetter.tech>'
+branding:
+  icon: 'upload-cloud'
+  color: 'yellow'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

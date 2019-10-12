@@ -1,14 +1,5 @@
 FROM alpine:3.9 as base
 
-LABEL "com.github.actions.name"="GitHub Upload Release Artifacts"
-LABEL "com.github.actions.description"="Upload Artifacts to a GitHub release."
-LABEL "com.github.actions.icon"="upload-cloud"
-LABEL "com.github.actions.color"="yellow"
-
-LABEL "repository"="https://github.com/Roang-zero1/github-upload-release-artifacts"
-LABEL "homepage"="https://github.com/Roang-zero1/github-upload-release-artifacts"
-LABEL "maintainer"="Roang_zero1 <lucas@brandstaetter.tech>"
-
 RUN apk add --no-cache jq curl
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]

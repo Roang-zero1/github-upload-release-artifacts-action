@@ -9,39 +9,40 @@ Arguments can either be file or directory paths, for directories all contained f
 
 A sample workflow would be:
 
-```github-actions
-workflow "Check & Release" {
-  on = "push"
-  resolves = ["Upload artifacts"]
-
-  action "Build" {
-    uses = [./]
-  }
-
-  action "Create GitHub release" {
-    uses = "Roang-zero1/github-create-release-action@master"
-    needs = ["Build"]
-    secrets = [
-      "GITHUB_TOKEN"
-    ]
-  }
-
-
-  action "Upload artifacts" {
-    uses = "Roang-zero1/github-upload-release-artifacts-action@master"
-    args = [ "dist/bin/", "dist/shell/compiled.sh"]
-    needs = ["Create GitHub release"]
-    secrets = [
-      "GITHUB_TOKEN"
-    ]
-  }
-}
+```yaml
+on: push
+name: Build & Release
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: |
+        ./build.sh
+  release:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+    - uses: actions/checkout@master
+    - name: Create release
+      uses: Roang-zero1/github-create-release-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create GitHub release
+      uses: Roang-zero1/github-upload-release-artifacts-action@master
+      with:
+        args:
+        - dist/bin/
+        - dist/shell/compiled.sh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Secrets
 
 * `GITHUB_TOKEN` Provided by the GitHub action
 
-## Acknowledgements
+## Acknowledgments
 
 Idea based on [fnkr/github-action-ghr](https://github.com/fnkr/github-action-ghr)
