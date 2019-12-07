@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/ash
 
-set -euo pipefail
+set -eu
 
 if [ "${GITHUB_REF}" == "${GITHUB_REF#refs/tags/}" ]; then
   echo "This is not a tagged push." 1>&2
