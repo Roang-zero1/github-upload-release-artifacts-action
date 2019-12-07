@@ -2,12 +2,20 @@
 
 set -eu
 
-if [ "${GITHUB_REF}" == "${GITHUB_REF#refs/tags/}" ]; then
-  echo "This is not a tagged push." 1>&2
-  exit 78
-fi
+set_tag() {
+  if [ -n "${INPUT_CREATED_TAG}" ]; then
+    TAG=${INPUT_CREATED_TAG}
+  else
+    TAG="$(echo ${GITHUB_REF} | grep tags | grep -o "[^/]*$" || true)"
+  fi
+}
 
-TAG="${GITHUB_REF#refs/tags/}"
+set_tag
+
+if [ -z $TAG ]; then
+  echo "This is not a tagged push." 1>&2
+  exit 1
+fi
 
 # Prepare the headers
 AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"

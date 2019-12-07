@@ -5,6 +5,11 @@ author: 'Roang_zero1 <lucas@brandstaetter.tech>'
 branding:
   icon: 'upload-cloud'
   color: 'yellow'
+inputs:
+  created_tag:
+    description: "Allows to pass an already created tag, forces update_existing to true."
+    default: ""
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
