@@ -35,7 +35,7 @@ if [ $HTTP_STATUS -ne 200 ]; then
   exit 1
 fi
 
-for path in "$@"; do
+for path in $@; do
   if [[ -d $path || -f $path ]]; then
     ghr -u "${GITHUB_REPOSITORY%/*}" -r "${GITHUB_REPOSITORY#*/}" "${GITHUB_REF#refs/tags/}" "${path}"
   else
