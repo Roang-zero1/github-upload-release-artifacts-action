@@ -31,7 +31,7 @@ for path in "$@"; do
   if [[ -d $path || -f $path ]]; then
     ghr -u "${GITHUB_REPOSITORY%/*}" -r "${GITHUB_REPOSITORY#*/}" "${GITHUB_REF#refs/tags/}" "${path}"
   else
-    echo "Invalid path passed"
+    echo "Invalid path passed: ${path}"
     exit 1
   fi
 done
