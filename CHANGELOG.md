@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.0.3
+
+Add debug output for invalid paths
+
 ## v2.0.2
 
 Update to new action format
