@@ -1,6 +1,6 @@
 FROM alpine:3.9 as base
 
-RUN apk add --no-cache jq curl
+RUN apk add --no-cache jq curl gcompat
 
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 RUN curl -s https://api.github.com/repos/tcnksm/ghr/releases/latest | \
