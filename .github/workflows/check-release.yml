@@ -6,10 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Format and check with shfmt
-      uses: bltavares/actions/shfmt@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SHFMT_ARGS: -i 2 -ci
+      uses: reviewdog/action-shfmt@v1
   lint:
     runs-on: ubuntu-latest
     steps:
