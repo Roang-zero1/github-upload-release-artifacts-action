@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.1.1
+
+- Fix missing alpine dependencies
+
 ## v2.1.0
 
 - Add support for glob patterns

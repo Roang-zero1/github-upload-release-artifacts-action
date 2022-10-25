@@ -26,11 +26,11 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create release
-      uses: Roang-zero1/github-create-release-action@master
+      uses: Roang-zero1/github-create-release-action@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Create GitHub release
-      uses: Roang-zero1/github-upload-release-artifacts-action@master
+      uses: Roang-zero1/github-upload-release-artifacts-action@v2
       with:
         args:
         - dist/bin/
