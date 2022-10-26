@@ -1,0 +1,16 @@
+name: Lint & Release
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+jobs:
+  sh-checker:
+    uses: Roang-zero1/workflows/.github/workflows/sh-checker.yml@v1
+  hadolint:
+    uses: Roang-zero1/workflows/.github/workflows/hadolint.yml@v1
+  release:
+    uses: Roang-zero1/workflows/.github/workflows/create-release.yml@v1
+    needs: [sh-checker, hadolint]
+  update-major-version-tag:
+    uses: Roang-zero1/workflows/.github/workflows/update-major-version-tag.yml@v1
+    needs: [release]
