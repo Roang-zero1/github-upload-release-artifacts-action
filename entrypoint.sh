@@ -13,7 +13,7 @@ set_tag() {
 set_tag
 
 if [ -z "$TAG" ]; then
-  echo "This is not a tagged push." 1>&2
+  echo "::error ::This is not a tagged push"
   exit 1
 fi
 
@@ -31,15 +31,16 @@ HTTP_RESPONSE=$(curl --write-out "HTTPSTATUS:%{http_code}" \
 HTTP_STATUS=$(echo "$HTTP_RESPONSE" | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
 
 if [[ "$HTTP_STATUS" -ne 200 ]]; then
-  echo "Release is missing"
+  echo "::error ::Release is missing"
   exit 1
 fi
 
 for path in "$@"; do
   if [[ -d "$path" ]]|| [[ -f "$path" ]]; then
     ghr -u "${GITHUB_REPOSITORY%/*}" -r "${GITHUB_REPOSITORY#*/}" "${GITHUB_REF#refs/tags/}" "${path}"
+    echo "::debug ::Uploaded: ${path}"
   else
-    echo "Invalid path passed: ${path}"
+    echo "::error ::Invalid path passed: ${path}"
     exit 1
   fi
 done
