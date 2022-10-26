@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v3.0.0
+
+Replace docker image with debian:slim to support ghr
+
+- Update outputs with GitHub Actions format
+
 ## v2.1.1
 
 - Fix missing alpine dependencies
