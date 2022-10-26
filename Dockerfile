@@ -1,8 +1,11 @@
-FROM alpine:3.9 as base
+FROM debian:stable-slim as base
 
-RUN apk add --no-cache jq curl gcompat
+RUN apt-get update && \
+    apt-get install -y jq curl && \
+    apt-get clean && \
+    rm -rf "/var/lib/apt/lists/*"
 
-SHELL ["/bin/ash", "-o", "pipefail", "-c"]
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN curl -s https://api.github.com/repos/tcnksm/ghr/releases/latest | \
     jq -r '.assets[] | select(.browser_download_url | contains("linux_amd64"))  | .browser_download_url' | \
     xargs curl -o ghr.tgz -sSL && \
